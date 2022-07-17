@@ -279,3 +279,12 @@ await f1.downloadFrom("https://example.com/api/data");
 - However this method returns a Promise.
 
 - If the Request or Write Fails, original content of the file will be re-written
+
+
+-------------------
+
+## `Directory Instance`
+
+*Soon...*
+
+
