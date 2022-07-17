@@ -1,0 +1,18 @@
+{
+  "name": "filic",
+  "version": "1.0.0",
+  "description": "An Advance File System API",
+  "main": "index.js",
+  "keywords": [
+    "File System",
+    "fs",
+    "Advance",
+    "File",
+    "Directory"
+  ],
+  "scripts": {},
+  "license": "ISC",
+  "devDependencies": {},
+  "homepage": "https://github.com/henil0604/filic#readme",
+  "author": "Henil Malaviya <henilmalaviya06@gmail.com>"
+}
