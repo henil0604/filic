@@ -85,7 +85,6 @@ class Directory {
 
     clear() {
         this.list().map(e => {
-            console.log(e)
             e.isDirectory ? e.deleteItSelf() : e.delete()
         })
         return this;
