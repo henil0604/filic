@@ -165,6 +165,20 @@ class Directory {
         });
     }
 
+    secondCopy(directoryName) {
+        if (typeof directoryName !== 'string') {
+            throw new Error("\"directoryName\" must be typeof string")
+        }
+
+        const dir = this.Directory.open(`dir:${directoryName}`);
+
+        this.list().forEach(e => {
+            e.copy(dir);
+        })
+
+        return dir;
+    }
+
     get exists() {
         return fs.existsSync(this.path);
     }
