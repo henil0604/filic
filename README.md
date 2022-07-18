@@ -421,6 +421,29 @@ const Dir2 = fs.open("dir:dir2");
 Dir1.move(Dir2)
 ```
 
+### `Directory.command`
+
+Allows to run Command Inside the Directory
+
+```js
+const Dir1 = fs.open("dir:dir1");
+
+Dir1.command("npm install filic").then(console.log);
+```
+
+With Sync
+```js
+const Dir1 = fs.open("dir:dir1");
+
+const command = Dir1.command("npm install filic");
+
+console.log(command);
+```
+
+- `params`
+    - `command`: Command that you want to run
+    - `sync`: default `false`, if `true` it will block the event loop and run the command synchronously, if `false` returns a promise that will be resolved when all output comes.
+
 ----------
 
 **More Methods and Utilities will be added soon...**

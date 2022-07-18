@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Path = require("path");
 const Filic = require("./Filic")
+const childProcess = require("child_process");
 
 
 class Directory {
@@ -126,6 +127,43 @@ class Directory {
         })
 
         return directory;
+    }
+
+    command(command, sync = false) {
+        command = `cd "${this.path}" && ` + command
+
+        if (sync) {
+            try {
+                const exec = childProcess.execSync(command, {
+                    encoding: "utf-8",
+                    windowsHide: true,
+                    stdio: ['ignore', 'pipe', 'pipe']
+                });
+
+                return exec;
+            } catch (e) {
+                return e.stderr
+            }
+        }
+
+        return new Promise((resolve) => {
+            childProcess.exec(command, function (error, standardOutput, standardError) {
+                if (error) {
+                    resolve(error);
+
+                    return;
+                }
+
+                if (standardError) {
+                    resolve(standardError);
+
+                    return;
+                }
+
+                resolve(standardOutput);
+            });
+
+        });
     }
 
     get exists() {
