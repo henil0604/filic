@@ -68,6 +68,7 @@ class File {
     }
 
     delete() {
+        if (!this.exists) { return this };
         fs.unlinkSync(this.path)
         return this;
     }
