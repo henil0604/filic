@@ -61,22 +61,31 @@ class Directory {
     }
 
     delete(path) {
-        this.createFilicInstance().open(path).delete(path);
+        const File = require("./File");
+
+        if (path instanceof File || path instanceof Directory) {
+            path.isDirectory ? path.deleteItSelf() : path.delete();
+            return this;
+        }
+
+        const instance = this.open(path);
+
+        instance.isDirectory ? instance.deleteItSelf() : instance.delete();
+
         return this;
     }
 
     deleteItSelf() {
-        this.list().map(e => {
-            e.deleteItSelf?.()
-            e.delete?.()
-        })
+        if (!this.exists) { return this; }
+        this.clear();
         fs.rmdirSync(this.path)
         return this;
     }
 
     clear() {
         this.list().map(e => {
-            e.deleteItSelf()
+            console.log(e)
+            e.isDirectory ? e.deleteItSelf() : e.delete()
         })
         return this;
     }
@@ -113,7 +122,7 @@ class Directory {
         directory = insidesOnly === false ? directory.open("dir:" + this.dirname) : directory;
 
         this.list().map(e => {
-            e.move(directory);
+            e.isDirectory ? e.move(directory, false) : e.move(directory);
         })
 
         return directory;
@@ -139,10 +148,6 @@ class Directory {
         }
 
         return Filic.open(parentPath);
-    }
-
-    static exists(path) {
-        return fs.existsSync(path);
     }
 
 }
