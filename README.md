@@ -131,7 +131,7 @@ file1.append("Hello 2");
 
 File Output
 ```text
-Hello 1Hello2
+Hello 1Hello 2
 ```
 
 **Note: This does not add `\n` at the end of the content. If you want to add it, you will have to do it manually**
