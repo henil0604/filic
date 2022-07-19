@@ -444,6 +444,17 @@ console.log(command);
     - `command`: Command that you want to run
     - `sync`: default `false`, if `true` it will block the event loop and run the command synchronously, if `false` returns a promise that will be resolved when all output comes.
 
+### `Directory.secondCopy`
+
+It Creates the second Copy of Directory In Parent Directory.
+
+```js
+const Dir1 = fs.open("dir:dir1");
+const foo = Dir1.open("file:foo");
+
+Dir1.secondCopy("dir2")
+```
+
 ----------
 
 **More Methods and Utilities will be added soon...**
