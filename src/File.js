@@ -55,16 +55,20 @@ class File {
     write(content, options) {
         if (!this.exists && this.options.autoCreate) this.create();
 
-        if (Array.isArray(content)) {
-            content = Filic.ByteArrayToString(content);
-        }
-
-        if (typeof content === 'object') {
-            content = JSON.stringify(content);
-        }
+        content = File.ParseWrite(content);
 
         fs.writeFileSync(this.path, content, options);
         return this;
+    }
+
+    append(content, options) {
+        if (!this.exists && this.options.autoCreate) this.create();
+
+        const toAppendContent = File.ParseWrite(content);
+
+        const newContent = `${this.content}${toAppendContent}`;
+
+        return this.write(newContent, options);
     }
 
     delete() {
@@ -242,6 +246,18 @@ class File {
         }
 
         return Filic.open(Path.dirname(this.path));
+    }
+
+    static ParseWrite(content) {
+        if (Array.isArray(content)) {
+            content = Filic.ByteArrayToString(content);
+        }
+
+        if (typeof content === 'object') {
+            content = JSON.stringify(content);
+        }
+
+        return content;
     }
 
 }
