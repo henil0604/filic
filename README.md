@@ -163,8 +163,8 @@ const file1 = fs.open("Greeting.txt");
 const content = file1.content;
 
 console.log(content) // "Hello World"
-console.log(content.json) // null (because the content is not JSON parsable)
-console.log(content.ByteArray) // [ByteArray]
+console.log(content.json()) // null (because the content is not JSON parsable)
+console.log(content.ByteArray()) // [ByteArray]
 ```
 
 
