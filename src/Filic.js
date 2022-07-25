@@ -166,7 +166,7 @@ class Filic {
         let ByteArray = [];
         for (var i = 0; i < string.length; i++) {
             var code = string.charCodeAt(i);
-            ByteArray = ByteArray.concat([code]);
+            ByteArray.push(code);
         }
         return ByteArray;
     }
