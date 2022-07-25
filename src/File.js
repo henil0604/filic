@@ -187,13 +187,19 @@ class File {
         content.__proto__.json = null;
         content.__proto__.ByteArray = null;
 
-        try {
-            content.__proto__.json = JSON.parse(content);
-        } catch { }
+        const Try = (callback) => {
+            return (...args) => {
+                try {
+                    return callback?.(...args)
+                } catch (e) {
+                    return null
+                }
+            }
+        }
 
-        try {
-            content.__proto__.ByteArray = Filic.StringToByteArray(content)
-        } catch { }
+        content.__proto__.json = Try(() => JSON.parse(content))
+
+        content.__proto__.ByteArray = Try(() => Filic.StringToByteArray(content))
 
         return content;
     }
