@@ -1,6 +1,6 @@
 {
   "name": "filic",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "An Advance File System API",
   "main": "index.js",
   "keywords": [
@@ -10,7 +10,9 @@
     "File",
     "Directory"
   ],
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon ./test --ignore *"
+  },
   "license": "ISC",
   "devDependencies": {},
   "homepage": "https://github.com/henil0604/filic#readme",
