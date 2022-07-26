@@ -12,13 +12,20 @@ function getCallerFilePath() {
 
 class Filic {
 
-    constructor(BasePath) {
+    constructor (BasePath) {
         if (!BasePath) {
             this.BasePath = getCallerFilePath();
         } else {
             this.BasePath = BasePath;
         }
 
+        if (!fs.existsSync(this.BasePath)) {
+            fs.mkdirSync(this.BasePath);
+        }
+
+        if (fs.statSync(this.BasePath).isDirectory() === false) {
+            throw new Error(`${this.BasePath} is not a directory`)
+        }
 
     }
 
