@@ -10,7 +10,9 @@
     "File",
     "Directory"
   ],
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon ./test --ignore *"
+  },
   "license": "ISC",
   "devDependencies": {},
   "homepage": "https://github.com/henil0604/filic#readme",
