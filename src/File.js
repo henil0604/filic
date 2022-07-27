@@ -5,7 +5,7 @@ const Filic = require("./Filic");
 
 class File {
 
-    constructor(FilicInstance, path, options) {
+    constructor (FilicInstance, path, options) {
 
         if (!FilicInstance) {
             throw new Error("\"FilicInstance\" is required")
@@ -67,6 +67,16 @@ class File {
         const toAppendContent = File.ParseWrite(content);
 
         const newContent = `${this.content}${toAppendContent}`;
+
+        return this.write(newContent, options);
+    }
+
+    prepend(content, options) {
+        if (!this.exists && this.options.autoCreate) this.create();
+
+        const toAppendContent = File.ParseWrite(content);
+
+        const newContent = `${toAppendContent}${this.content}`;
 
         return this.write(newContent, options);
     }
