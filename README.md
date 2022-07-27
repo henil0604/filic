@@ -136,6 +136,20 @@ Hello 1Hello 2
 
 **Note: This does not add `\n` at the end of the content. If you want to add it, you will have to do it manually**
 
+### `File.prepend`
+
+Prepend Content at the end of the file
+
+```js
+const file1 = fs.open("file:file1.txt");
+file1.write("Hello 1");
+file1.prepend("Hello 2");
+```
+
+File Output
+```text
+Hello 2Hello 1
+```
 
 ### `File.read`
 
