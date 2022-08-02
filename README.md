@@ -319,6 +319,26 @@ However this method returns a Promise.
 If the Request or Write Fails, original content of the file will be re-written
 
 
+### `File.update`
+
+It allows to update the content of the file with a custom function.
+
+```js
+const f1 = fs.open("file:file1.json");
+f1.write({
+    name: "Henil",
+    age: 11
+})
+f1.update((content)=>{
+    content = content.json();
+    content.age = 17;
+    return content;
+})
+console.log(f1.content.json()) // { name: "Henil", age: 17 }
+```
+
+This Especially Helps when the content is `JSON Blob`.
+
 -------------------
 
 ## `Directory Instance`
