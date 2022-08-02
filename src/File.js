@@ -80,7 +80,13 @@ class File {
 
         return this.write(newContent, options);
     }
+    update(callback, options) {
+        const content = this.content;
 
+        const newContent = callback(content);
+
+        return this.write(newContent, options)
+    }
     delete() {
         if (!this.exists) { return this };
         fs.unlinkSync(this.path)
@@ -271,6 +277,10 @@ class File {
 
         if (typeof content === 'object') {
             content = JSON.stringify(content);
+        }
+
+        if (typeof content === 'number' && isNaN(content) === false) {
+            content = content.toString()
         }
 
         return content;
