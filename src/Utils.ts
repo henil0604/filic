@@ -20,6 +20,16 @@ class Utils {
         }
         return ByteArray;
     }
+
+    public static Try(callback: () => any) {
+        return (...args: []): any => {
+            try {
+                return callback?.(...args)
+            } catch (e) {
+                return null
+            }
+        }
+    }
 }
 
 export default Utils;

@@ -12,15 +12,39 @@ class Entity {
         this.options = { ...options };
 
         if (!this.options.Filic || this.options.Filic instanceof Filic === false) {
-            throw new Error("Parent not found!");
+            this.options.Filic = Filic.create(Path.dirname(this.options.path))
         }
 
         this.path = this.options.path;
         this.type = this.options.type;
 
-        if (!this.exists && this.options.autoCreate) {
-            this.createSync?.()
+        if (this.path.includes("/")) {
+            const entities = this.path.split('/');
+            let currentEntity = null;
+            for (let i = 0; i < entities.length; i++) {
+                const entity = entities[i];
+                if (currentEntity) {
+                    if (i === entities.length - 1 && this.type === EntityTypes.FILE) {
+                        currentEntity = currentEntity.openFile(entity);
+                    } else {
+                        currentEntity = currentEntity.openDir(entity);
+                    }
+                } else {
+                    currentEntity = this.Filic.openDir(entity);
+                }
+            }
+
+            return currentEntity;
         }
+
+
+        if (!this.exists && this.options.autoCreate) {
+            this.createSync?.({
+                recursive: true
+            })
+        }
+
+
 
     }
 
@@ -39,6 +63,13 @@ class Entity {
         return fs.existsSync(this.absolutePath);
     }
 
+    public get parentDir() {
+        return Filic.Directory.create({
+            path: Path.basename(Path.dirname(this.absolutePath)),
+            Filic: Filic.create(Path.dirname(Path.dirname(this.absolutePath))),
+            type: EntityTypes.DIR
+        });
+    }
 
     // Detect type of entity based on its stats
     public static detectTypeWithPath(path: string): EntityTypes | null {

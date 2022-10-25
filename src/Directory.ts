@@ -99,7 +99,7 @@ class Directory extends Entity {
         return this;
     }
 
-    // deletes a file
+    // deletes a file 
     public async deleteFile(path: (string | File), openFileOptions?: FileOptions, deleteOptions?: fs.RmOptions): Promise<this> {
         let instance: File;
         if (path instanceof File === false) {
@@ -132,12 +132,18 @@ class Directory extends Entity {
 
     // Open Directory inside a directory
     public openDir(path: string, options?: DirectoryOptions): Directory {
-        return this.toFilic().openDir(path, options);
+        return this.toFilic().openDir(path, {
+            Filic: this.toFilic(),
+            ...options,
+        });
     }
 
     // Open File inside a directory
     public openFile(path: string, options?: FileOptions): File {
-        return this.toFilic().openFile(path, options);
+        return this.toFilic().openFile(path, {
+            Filic: this.toFilic(),
+            ...options
+        });
     }
 
     // convert directory to filic instance
