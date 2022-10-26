@@ -2,6 +2,7 @@ import * as Path from 'path';
 import * as fs from 'fs';
 import { EntityOptions, EntityTypes } from '../types/Filic';
 import Filic from './Filic';
+import Directory from './Directory';
 
 class Entity {
     public type: EntityTypes;
@@ -64,7 +65,7 @@ class Entity {
     }
 
     public get parentDir() {
-        return Filic.Directory.create({
+        return Directory.create({
             path: Path.basename(Path.dirname(this.absolutePath)),
             Filic: Filic.create(Path.dirname(Path.dirname(this.absolutePath))),
             type: EntityTypes.DIR
