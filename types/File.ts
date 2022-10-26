@@ -41,3 +41,13 @@ export type createWriteStreamOptions = BufferEncoding | fs.promises.CreateWriteS
 
 export type deleteOptions = fs.RmOptions;
 export type deleteSyncOptions = deleteOptions;
+
+export interface copyOptions {
+    override?: boolean
+}
+export interface copySyncOptions extends copyOptions { }
+
+export interface moveOptions {
+    override?: boolean
+}
+export interface moveSyncOptions extends moveOptions { }

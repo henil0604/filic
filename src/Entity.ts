@@ -65,10 +65,14 @@ class Entity {
 
     public get parentDir() {
         return Filic.Directory.create({
-            path: Path.basename(Path.dirname(this.absolutePath)),
-            Filic: Filic.create(Path.dirname(Path.dirname(this.absolutePath))),
+            path: Path.basename(this.dirPath),
+            Filic: Filic.create(Path.dirname(this.dirPath)),
             type: EntityTypes.DIR
         });
+    }
+
+    public get dirPath() {
+        return Path.dirname(this.absolutePath);
     }
 
     // Detect type of entity based on its stats

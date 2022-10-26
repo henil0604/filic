@@ -103,6 +103,16 @@ class Filic {
         return File;
     }
 
+    public static openDir(path: string, options?: DirectoryOptions) {
+        const fs = new Filic(Path.dirname(path));
+        return fs.openDir(Path.basename(path), options);
+    }
+
+    public static openFile(path: string, options?: FileOptions) {
+        const fs = new Filic(Path.dirname(path));
+        return fs.openFile(Path.basename(path), options);
+    }
+
 
 }
 

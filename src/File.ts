@@ -5,6 +5,8 @@ import * as Path from 'path';
 import Utils from "./Utils";
 import { Abortable } from "events";
 import * as FileTypes from "../types/File";
+import Directory from "./Directory";
+import Filic from "./Filic";
 
 class File extends Entity {
 
@@ -69,9 +71,31 @@ class File extends Entity {
         return content;
     }
 
-    // public async append(content: string, readOptions) {
-    //     const readRaw = await this.readRaw(readOptions);
-    // }
+    public async append(content: string, readRawOptions?: FileTypes.readRawOptions, writeRawOptions?: FileTypes.writeRawOptions) {
+        let readRaw = await this.readRaw(readRawOptions);
+        readRaw += content;
+        await this.writeRaw(readRaw, writeRawOptions)
+        return readRaw;
+    }
+    public appendSync(content: string, readRawSyncOptions?: FileTypes.readRawSyncOptions, writeRawSyncOptions?: FileTypes.writeRawSyncOptions) {
+        let readRaw = this.readRawSync(readRawSyncOptions);
+        readRaw += content;
+        this.writeRawSync(readRaw, writeRawSyncOptions)
+        return readRaw;
+    }
+
+    public async prepend(content: string, readRawOptions?: FileTypes.readRawOptions, writeRawOptions?: FileTypes.writeRawOptions) {
+        let readRaw = await this.readRaw(readRawOptions);
+        content += readRaw;
+        await this.writeRaw(content, writeRawOptions)
+        return content;
+    }
+    public prependSync(content: string, readRawSyncOptions?: FileTypes.readRawSyncOptions, writeRawSyncOptions?: FileTypes.writeRawSyncOptions) {
+        let readRaw = this.readRawSync(readRawSyncOptions);
+        content += readRaw;
+        this.writeRawSync(content, writeRawSyncOptions)
+        return content;
+    }
 
     // Write Raw
     public async writeRaw(content: string, options?: FileTypes.writeRawOptions): Promise<this> {
@@ -131,6 +155,143 @@ class File extends Entity {
         fs.rmSync(this.absolutePath, options)
         return this;
     }
+
+
+    public async copy(destination: string | Directory, filename?: string, options?: FileTypes.copyOptions) {
+        options = {
+            override: false,
+            ...options
+        }
+        if (typeof destination === 'string') {
+            destination = Filic.openDir(destination, {
+                autoCreate: false
+            });
+        }
+        if (!filename) {
+            filename = this.filename
+        }
+
+        const file = destination.openFile(filename, {
+            autoCreate: false
+        })
+
+        if (file.exists && !options?.override) {
+            // NOTE: Add Warning or logging
+            return null;
+        }
+
+        await fs.promises.copyFile(this.absolutePath, file.absolutePath,);
+
+        return file;
+    }
+    public async copySync(destination: string | Directory, filename?: string, options?: FileTypes.copySyncOptions) {
+        options = {
+            override: false,
+            ...options
+        }
+        if (typeof destination === 'string') {
+            destination = Filic.openDir(destination, {
+                autoCreate: false
+            });
+        }
+        if (!filename) {
+            filename = this.filename
+        }
+
+        const file = destination.openFile(filename, {
+            autoCreate: false
+        })
+
+        if (file.exists && !options?.override) {
+            // NOTE: Add Warning or logging
+            return null;
+        }
+
+        fs.copyFileSync(this.absolutePath, file.absolutePath);
+
+        return file;
+    }
+
+    public async secondCopy(filename?: string, options?: FileTypes.copyOptions) {
+        return await this.copy(this.parentDir, filename, options);
+    }
+    public secondCopySync(filename?: string, options?: FileTypes.copySyncOptions) {
+        return this.copySync(this.parentDir, filename, options);
+    }
+
+
+    public async move(destination: string | Directory, filename?: string, options?: FileTypes.moveOptions) {
+        options = {
+            override: false,
+            ...options
+        }
+        if (typeof destination === 'string') {
+            destination = Filic.openDir(destination, {
+                autoCreate: false
+            });
+        }
+        if (!filename) {
+            filename = this.filename
+        }
+
+        const file = destination.openFile(filename, {
+            autoCreate: false
+        })
+
+        if (file.exists && !options?.override) {
+            // NOTE: Add Warning or logging
+            return null;
+        }
+
+
+        let content = await this.readRaw();
+
+        file.create()
+        await file.write(content)
+
+        await this.delete()
+
+        return file;
+    }
+    public moveSync(destination: string | Directory, filename?: string, options?: FileTypes.moveSyncOptions) {
+        options = {
+            override: false,
+            ...options
+        }
+        if (typeof destination === 'string') {
+            destination = Filic.openDir(destination, {
+                autoCreate: false
+            });
+        }
+        if (!filename) {
+            filename = this.filename
+        }
+
+        const file = destination.openFile(filename, {
+            autoCreate: false
+        })
+
+        if (file.exists && !options?.override) {
+            // NOTE: Add Warning or logging
+            return null;
+        }
+
+
+        let content = this.readRawSync();
+
+        file.create()
+        file.writeSync(content)
+
+        this.deleteSync()
+
+        return file;
+    }
+
+
+    public get filename() {
+        return Path.basename(this.absolutePath);
+    }
+
 
     // Parse any javascript related objects to string
     public static parseWrite(content: any) {
