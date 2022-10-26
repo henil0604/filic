@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import * as DirectoryTypes from '../types/Directory';
 import * as FileTypes from '../types/File';
+import * as child_process from "child_process";
 
 class Directory extends Entity {
 
@@ -125,6 +126,126 @@ class Directory extends Entity {
         return this;
     }
 
+    // Clear Directory
+    public async clear() {
+        const list = await this.list()
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                await (entity as Directory).deleteSelf({ force: true, recursive: true });
+            }
+            if (entity.type === EntityTypes.FILE) {
+                await (entity as File).delete();
+            }
+        }
+        return this;
+    }
+    public async clearSync() {
+        const list = this.listSync()
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                (entity as Directory).deleteSelfSync({ force: true, recursive: true });
+            }
+            if (entity.type === EntityTypes.FILE) {
+                (entity as File).deleteSync();
+            }
+        }
+        return this;
+    }
+
+    public has(path: string) {
+        return fs.existsSync(this.ResolvePath(path));
+    }
+
+    public async copyAll(destination: Directory) {
+        const list = await this.list()
+
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                await (entity as Directory).copyAll(destination.openDir((entity as Directory).dirname));
+            }
+            if (entity.type === EntityTypes.FILE) {
+                await (entity as File).copy(destination);
+            }
+        }
+
+        return this;
+    }
+    public copyAllSync(destination: Directory) {
+        const list = this.listSync()
+
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                (entity as Directory).copyAllSync(destination.openDir((entity as Directory).dirname));
+            }
+            if (entity.type === EntityTypes.FILE) {
+                (entity as File).copySync(destination);
+            }
+        }
+
+        return this;
+    }
+
+    public async copy(destination: Directory) {
+        destination = destination.openDir(this.dirname);
+        await this.copyAll(destination);
+        return this;
+    }
+    public copySync(destination: Directory) {
+        destination = destination.openDir(this.dirname);
+        this.copyAllSync(destination);
+        return this;
+    }
+
+    public async moveAll(destination: Directory) {
+        const list = await this.list()
+
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                await (entity as Directory).moveAll(destination.openDir((entity as Directory).dirname));
+            }
+            if (entity.type === EntityTypes.FILE) {
+                await (entity as File).move(destination);
+            }
+        }
+
+        return this;
+    }
+    public moveAllSync(destination: Directory) {
+        const list = this.listSync()
+
+        for (const entity of list) {
+            if (entity.type === EntityTypes.DIR) {
+                (entity as Directory).moveAllSync(destination.openDir((entity as Directory).dirname));
+            }
+            if (entity.type === EntityTypes.FILE) {
+                (entity as File).moveSync(destination);
+            }
+        }
+
+        return this;
+    }
+
+    public async move(destination: Directory) {
+        destination = destination.openDir(this.dirname);
+        await this.moveAll(destination);
+        await this.deleteSelf({ force: true, recursive: true })
+        return this;
+    }
+    public moveSync(destination: Directory) {
+        destination = destination.openDir(this.dirname);
+        this.moveAllSync(destination);
+        this.deleteSelfSync({ force: true, recursive: true })
+        return this;
+    }
+
+    public async secondCopy(dirname: string) {
+        await this.copyAll(this.parentDir.openDir(dirname));
+        return this;
+    }
+    public secondCopySync(dirname: string) {
+        this.copyAllSync(this.parentDir.openDir(dirname));
+        return this;
+    }
 
     // Path Resolver
     // Appends the given path to absolutePath
@@ -151,6 +272,10 @@ class Directory extends Entity {
     // convert directory to filic instance
     public toFilic(): Filic {
         return Filic.create(this.absolutePath);
+    }
+
+    public get dirname() {
+        return Path.basename(this.absolutePath);
     }
 
     // create new instance
