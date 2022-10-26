@@ -51,3 +51,6 @@ export interface moveOptions {
     override?: boolean
 }
 export interface moveSyncOptions extends moveOptions { }
+
+export type readReturn = string & { toJSON: () => any, toBuffer: () => number[] };
+export type readSyncReturn = readReturn;

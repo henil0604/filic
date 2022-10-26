@@ -53,7 +53,7 @@ class File extends Entity {
     public async read(options?: FileTypes.readOptions) {
         if (!this.exists) return null;
 
-        const content = await this.readRaw(options) as string & { toJSON: () => null | object, toBuffer: () => number[] };
+        const content = await this.readRaw(options) as FileTypes.readReturn;
 
         Object.getPrototypeOf(content).toJSON = Utils.Try(() => JSON.parse(content));
         Object.getPrototypeOf(content).toBuffer = Utils.Try(() => Buffer.from(content))
@@ -62,7 +62,7 @@ class File extends Entity {
     public readSync(options?: FileTypes.readSyncOptions) {
         if (!this.exists) return null;
 
-        const content = this.readRawSync(options) as string & { toJSON: () => null | object, toBuffer: () => number[] };
+        const content = this.readRawSync(options) as FileTypes.readSyncReturn;
 
         Object.getPrototypeOf(content).toJSON = Utils.Try(() => JSON.parse(content));
         Object.getPrototypeOf(content).toBuffer = Utils.Try(() => Buffer.from(content))
@@ -157,15 +157,10 @@ class File extends Entity {
     }
 
 
-    public async copy(destination: string | Directory, filename?: string, options?: FileTypes.copyOptions) {
+    public async copy(destination: Directory, filename?: string, options?: FileTypes.copyOptions) {
         options = {
             override: false,
             ...options
-        }
-        if (typeof destination === 'string') {
-            destination = Filic.openDir(destination, {
-                autoCreate: false
-            });
         }
         if (!filename) {
             filename = this.filename
@@ -184,15 +179,10 @@ class File extends Entity {
 
         return file;
     }
-    public async copySync(destination: string | Directory, filename?: string, options?: FileTypes.copySyncOptions) {
+    public async copySync(destination: Directory, filename?: string, options?: FileTypes.copySyncOptions) {
         options = {
             override: false,
             ...options
-        }
-        if (typeof destination === 'string') {
-            destination = Filic.openDir(destination, {
-                autoCreate: false
-            });
         }
         if (!filename) {
             filename = this.filename
@@ -220,15 +210,10 @@ class File extends Entity {
     }
 
 
-    public async move(destination: string | Directory, filename?: string, options?: FileTypes.moveOptions) {
+    public async move(destination: Directory, filename?: string, options?: FileTypes.moveOptions) {
         options = {
             override: false,
             ...options
-        }
-        if (typeof destination === 'string') {
-            destination = Filic.openDir(destination, {
-                autoCreate: false
-            });
         }
         if (!filename) {
             filename = this.filename
@@ -243,25 +228,14 @@ class File extends Entity {
             return null;
         }
 
-
-        let content = await this.readRaw();
-
-        file.create()
-        await file.write(content)
-
-        await this.delete()
+        await fs.promises.rename(this.absolutePath, file.absolutePath);
 
         return file;
     }
-    public moveSync(destination: string | Directory, filename?: string, options?: FileTypes.moveSyncOptions) {
+    public moveSync(destination: Directory, filename?: string, options?: FileTypes.moveSyncOptions) {
         options = {
             override: false,
             ...options
-        }
-        if (typeof destination === 'string') {
-            destination = Filic.openDir(destination, {
-                autoCreate: false
-            });
         }
         if (!filename) {
             filename = this.filename
@@ -276,17 +250,41 @@ class File extends Entity {
             return null;
         }
 
-
-        let content = this.readRawSync();
-
-        file.create()
-        file.writeSync(content)
-
-        this.deleteSync()
+        fs.renameSync(this.absolutePath, file.absolutePath);
 
         return file;
     }
 
+    public async rename(filename?: string) {
+        return await this.move(this.parentDir, filename);
+    }
+    public renameSync(filename?: string) {
+        return this.moveSync(this.parentDir, filename);
+    }
+
+    public async replaceWith(file: File) {
+        const fileContent = await file.readRaw();
+        await this.writeRaw(fileContent);
+        return this;
+    }
+    public replaceWithSync(file: File) {
+        const fileContent = file.readRawSync();
+        this.writeRawSync(fileContent);
+        return this;
+    }
+
+    public async update(callback: (content: FileTypes.readReturn) => any) {
+        const content = await this.read();
+        const newContent = callback(content);
+        await this.write(newContent);
+        return this;
+    }
+    public updateSync(callback: (content: FileTypes.readSyncReturn) => any) {
+        const content = this.readSync();
+        const newContent = callback(content);
+        this.writeSync(newContent);
+        return this;
+    }
 
     public get filename() {
         return Path.basename(this.absolutePath);
