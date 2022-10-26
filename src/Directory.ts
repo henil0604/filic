@@ -4,6 +4,8 @@ import Filic from "./Filic";
 import File from './File';
 import * as fs from 'fs';
 import * as Path from 'path';
+import * as DirectoryTypes from '../types/Directory';
+import * as FileTypes from '../types/File';
 
 class Directory extends Entity {
 
@@ -16,21 +18,21 @@ class Directory extends Entity {
     }
 
     // Create Method
-    public async create(options?: fs.MakeDirectoryOptions): Promise<this> {
+    public async create(options?: DirectoryTypes.createOptions): Promise<this> {
         await fs.promises.mkdir(this.absolutePath, options)
         return this;
     }
-    public createSync(options?: fs.MakeDirectoryOptions): this {
+    public createSync(options?: DirectoryTypes.createSyncOptions): this {
         fs.mkdirSync(this.absolutePath, options)
         return this;
     }
 
     // Delete Method
-    public async deleteSelf(options?: fs.RmOptions): Promise<this> {
+    public async deleteSelf(options?: DirectoryTypes.deleteSelfOptions): Promise<this> {
         await fs.promises.rm(this.absolutePath, options)
         return this;
     }
-    public deleteSelfSync(options?: fs.RmOptions): this {
+    public deleteSelfSync(options?: DirectoryTypes.deleteSelfSyncOptions): this {
         fs.rmSync(this.absolutePath, options)
         return this;
     }
@@ -76,7 +78,7 @@ class Directory extends Entity {
     }
 
     // deletes a directory
-    public async deleteDir(path: (string | Directory), openDirOptions?: DirectoryOptions, deleteSelfOptions?: fs.RmOptions): Promise<this> {
+    public async deleteDir(path: (string | Directory), openDirOptions?: DirectoryOptions, deleteSelfOptions?: DirectoryTypes.deleteSelfOptions): Promise<this> {
         let instance: Directory;
         if (path instanceof Directory === false) {
             instance = this.openDir(path as string, {
@@ -87,7 +89,7 @@ class Directory extends Entity {
         await instance.deleteSelf(deleteSelfOptions)
         return this;
     }
-    public deleteDirSync(path: (string | Directory), openDirOptions?: DirectoryOptions, deleteSelfOptions?: fs.RmOptions): this {
+    public deleteDirSync(path: (string | Directory), openDirOptions?: DirectoryOptions, deleteSelfOptions?: DirectoryTypes.deleteSelfSyncOptions): this {
         let instance: Directory;
         if (path instanceof Directory === false) {
             instance = this.openDir(path as string, {
@@ -100,7 +102,7 @@ class Directory extends Entity {
     }
 
     // deletes a file 
-    public async deleteFile(path: (string | File), openFileOptions?: FileOptions, deleteOptions?: fs.RmOptions): Promise<this> {
+    public async deleteFile(path: (string | File), openFileOptions?: FileOptions, deleteOptions?: FileTypes.deleteOptions): Promise<this> {
         let instance: File;
         if (path instanceof File === false) {
             instance = this.openFile(path as string, {
@@ -111,7 +113,7 @@ class Directory extends Entity {
         await instance.delete(deleteOptions)
         return this;
     }
-    public deleteFileSync(path: (string | File), openFileOptions?: FileOptions, deleteOptions?: fs.RmOptions): this {
+    public deleteFileSync(path: (string | File), openFileOptions?: FileOptions, deleteOptions?: FileTypes.deleteSyncOptions): this {
         let instance: File;
         if (path instanceof File === false) {
             instance = this.openFile(path as string, {
