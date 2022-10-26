@@ -91,6 +91,18 @@ class Filic {
         return new Filic(BasePath)
     }
 
+    public static get Entity() {
+        return Entity;
+    }
+
+    public static get Directory() {
+        return Directory;
+    }
+
+    public static get File() {
+        return File;
+    }
+
 
 }
 
