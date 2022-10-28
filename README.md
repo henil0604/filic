@@ -23,7 +23,7 @@ npm install filic
 
 ## Ideology
 
-This library aims to simplify how applications access File System via `fs` API. The FIlic API is really simple to use to make your experience great with File System API.
+This library aims to simplify how applications access File System via `fs` API. The Filic API is really simple to use to make your experience great with File System API.
 
 Filic uses object oriented abroach to handle files and directories. 
 
