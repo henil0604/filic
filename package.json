@@ -10,6 +10,7 @@
     "File",
     "Directory"
   ],
+  "type": "module",
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc"
