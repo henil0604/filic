@@ -1,518 +1,553 @@
-# Filic
+<h1 align="center">Welcome to filic 👋</h1>
+<p>
+  <a href="https://www.npmjs.com/package/filic" target="_blank">
+    <img alt="Version" src="https://img.shields.io/npm/v/filic.svg">
+  </a>
+  <a href="#" target="_blank">
+    <img alt="License: ISC" src="https://img.shields.io/badge/License-ISC-yellow.svg" />
+  </a>
+  <a href="https://twitter.com/henil06" target="_blank">
+    <img alt="Twitter: henil06" src="https://img.shields.io/twitter/follow/henil06.svg?style=social" />
+  </a>
+</p>
 
-![npm](https://img.shields.io/npm/v/filic) ![npm](https://img.shields.io/npm/dm/filic)
+> An Advance File System API
 
-An Advanced File System API for NodeJs
+### 🏠 [Homepage](https://github.com/henil0604/filic#readme)
 
-Filic Provides a way to Interact with your File System in a very Structural Way.
-Filic has an API for handling everything that you might think of doing with your File System.
-Filic Provides Extra Features `Downloading A File from URL`, `Detailed File Content Analysis`, etc...
+## Install
 
-## Installation
-
-```bash
-npm i filic
-```
-Or With `Yarn`
-```bash
-yarn add filic
-```
-
-## Usage
-
-Importing Filic Object
-```js
-const Filic = require("filic");
+```sh
+npm install filic
 ```
 
-Creating Filic Instance
-```js
-const fs = new Filic(BasePath);
-// Or With Filic.create
-const fs = Filic.create(BasePath);
-```
+## Ideology
 
-- `params`
-    - `BasePath`: Base Path from where every file will be resolved
+This library aims to simplify how applications access File System via `fs` API. The Filic API is really simple to use to make your experience great with File System API.
 
-------------------
- 
-## Opening A File
+Filic uses object oriented abroach to handle files and directories. 
 
-Filic Instance has a method `Filic.open` from where you can open the file based on the `BasePath` that you have Provided
+Filic's First Priority is to make API type-safe and simple.
+
+
+## Quick Start
 
 ```js
-fs.open(path, options);
-```
+import Filic from 'filic';
 
-- `params`
-    - `path`: The path of the file/directory you want to open
-    - `options`: Options of the `Directory/File` Instance
+const fs = Filic.create("/home") // new Filic
 
-`Filic.open` will return an instance of `Directory` or `File`
+const greetings = fs.openFile("greetings.json")
 
-
-#### `static Filic.open` method
-
-You have have to pass the exact path of the file/directory that you want to open as it does not use any `BasePath` to resolve the absolute path of the file/directory
-
-```js
-Filic.open(path, options)
-```
-
-- `params`
-    - `path`: The path of the file you want to open
-    - `options`: Options of the `Directory/File` Instance
-
-`Filic.open` will return an instance of `Directory` or `File`
-
-
-#### Passing the Type of the Path
-
-This feature allows you to tell to Filic that the path you want to open is Directory or a File.
-
-```js
-fs.open("dir:<path>");
-```
-Here the passed path will result into accessed as a directory
-
-```js
-fs.open("file:<path>");
-```
-Here the passed path will result into accessed as a file
-
-**If the path you tried to open with a `type` already exists with other `type` the returned instance will be that of the `type`**
-
-
--------------
-
-
-## `File Instance`
-
-### `File.write`
-
-`File.write` allows to Write on a file.
-
-```js
-...
-const file1 = fs.open("Greeting.txt");
-file1.write("Hello! Good Morning!");
-```
-
-It also supports JSON
-
-```js
-...
-file1.write({
-    name: "foo",
-    age: 17
-})
-```
-
-It also supports Byte Array
-
-```js
-file1.write([
-   72, 101, 108, 108,
-  111,  32,  87, 111,
-  114, 108, 100
+greetings.writeSync([
+    "Good Morning",
+    "Good Afternoon",
+    "Good Night"
 ])
+
+console.log(greetings.readSync()); // ["Good Morning","Good Afternoon","Good Night"]
+
 ```
 
-### `File.append`
 
-Append Content at the end of the file
+## API
+
+### Types
 
 ```js
-const file1 = fs.open("file:file1.txt");
-file1.write("Hello 1");
-file1.append("Hello 2");
+import * as FilicTypes from 'filic/types/Filic';
+import * as DirectoryTypes from 'filic/types/Directory';
+import * as FileTypes from 'filic/types/File';
 ```
 
-File Output
-```text
-Hello 1Hello 2
-```
+### `Filic`
 
-**Note: This does not add `\n` at the end of the content. If you want to add it, you will have to do it manually**
+- #### `static Filic.create`
 
-### `File.prepend`
+    Allows to create Filic Instance
+    ```js
+        import Filic from 'filic'
 
-Prepend Content at the end of the file
+        const fs = Filic.create(BasePath);
+    ```
+
+    - BasePath: `string`
+        - Path of Directory from where every path will be resolved
+
+- #### `Filic.openDir`
+
+    Opens Directory
+
+    ```js
+        const users = fs.openDir("users", options?);
+    ```
+
+    - dirname: `string`
+        - Name of Directory that you want open
+    - options: `FilicTypes.DirectoryOptions`
+
+- #### `Filic.openFile`
+
+    Opens File
+
+    ```js
+        const foo = fs.openFile("foo", options?);
+    ```
+
+    - filename: `string`
+        - Name of File that you want open
+    - options: `FilicTypes.FileOptions`
+
+
+👤 **Henil Malaviya <henilmalaviya06@gmail.com>**
+
+* Website: [henil.xyz](https://henil.xyz)
+* Twitter: [@henil06](https://twitter.com/henil06)
+* Github: [@henil0604](https://github.com/henil0604)
+
+### `Directory`
 
 ```js
-const file1 = fs.open("file:file1.txt");
-file1.write("Hello 1");
-file1.prepend("Hello 2");
+const dir = fs.openDir(dirname, options?);
 ```
 
-File Output
-```text
-Hello 2Hello 1
-```
+- dirname: `string`
+- options: `Filic.DirectoryOptions`
 
-### `File.read`
+- #### `Directory.openDir`
 
-`File.read` allows to read the content of the file
+    - opens a directory inside the directory
+
+    ```js
+        dir.openDir(path, options?) // returns Directory
+    ```
+
+    - path: `string`
+        - path of the directory
+    - options: `FilicTypes.DirectoryOptions`
+
+- #### `Directory.openFile`
+
+    - opens a file inside the directory
+
+    ```js
+        dir.openFile(path, options?) // returns Directory
+    ```
+
+    - path: `string`
+        - path of the file
+    - options: `FilicTypes.FileOptions`
+
+- #### `Directory.create`
+
+    - Create directory
+
+    ```js
+        const dir = fs.openDir("dir", { autoCreate: false });
+        dir.createSync(options?) // creates directory
+    ```
+
+    - options: `DirectoryTypes.createSyncOptions`
+
+
+- #### `Directory.delete`
+
+    - Delete Directory
+
+    ```js
+        dir.deleteSelfSync(options?)
+    ```
+    
+    - options: `DirectoryTypes.deleteSelfSyncOptions`
+
+- #### `Directory.listRaw`
+
+    - Raw Listing
+    ```js
+        dir.listRawSync();
+    ```
+
+- #### `Directory.list`
+
+    - Listing as Entity Instances
+    ```js
+        dir.listSync(); // returns (Directory | File)[]
+    ```
+
+- #### `Directory.deleteFile`
+
+    - delete File inside directory
+
+    ```js
+        dir.deleteFileSync(path, openFileOptions?, deleteOptions?);
+    ```
+
+    - path: `string | File`
+        - Path/File Instance of the file you want to delete
+    - openFileOptions: `FilicTypes.FileOptions`
+    - deleteOptions: `FileTypes.deleteSyncOptions`
+
+- #### `Directory.deleteDir`
+
+    - delete Directory inside directory
+
+    ```js
+        dir.deleteDirSync(path, openDirOptions?, deleteSelfOptions?);
+    ```
+
+    - path: `string | Directory`
+        - Path/Directory Instance of the file you want to delete
+    - openDirOptions: `FilicTypes.DirectoryOptions`
+    - deleteSelfOptions: `FileTypes.deleteSelfSyncOptions`
+
+- #### `Directory.clear`
+
+    - delete everything inside
+
+    ```js
+        dir.clearSync()
+    ```
+
+- #### `Directory.has`
+    
+    - checks if file or directory exists inside
+
+    ```js
+        dir.has(path) // returns boolean
+    ```
+
+    - path: `string`
+        - path of file or directory
+
+- #### `Directory.copyAll`
+
+    - copies all file inside to destination directory
+
+    ```js
+        dir.copyAllSync(destination)
+    ```
+
+    - destination: `Directory`
+
+- #### `Directory.copy`
+
+    - copies it self to destination directory
+
+    ```js
+        dir.copySync(destination)
+    ```
+
+    - destination: `Directory`
+
+- #### `Directory.moveAll`
+
+    - moves all file inside to destination directory
+
+    ```js
+        dir.moveAllSync(destination)
+    ```
+
+    - destination: `Directory`
+
+- #### `Directory.move`
+
+    - moves it self to destination directory
+
+    ```js
+        dir.moveSync(destination)
+    ```
+
+    - destination: `Directory`
+
+- #### `Directory.secondCopy`
+
+    - Creates second copy of self in parent directory
+
+    ```js
+        dir.secondCopySync(dirname)
+    ```
+
+    - dirname: `string`
+
+- #### `Directory.toFilic`
+
+    - creates `Filic` Instance of directory Path as `BasePath`
+
+    ```js
+        dir.toFilic() // returns Filic
+    ```
+
+- #### `get Directory.dirname`
+
+    - returns directory name of directory
+
+    ```js
+        dir.dirname // returns string
+    ```
+
+### `File`
 
 ```js
-...
-const file1 = fs.open("Greeting.txt");
-const content = file1.read()
-
-console.log(content) // "Hello World"
+const file = fs.openFile(filename, options?);
 ```
 
-### `File.content`
+- dirname: `string`
+- options: `Filic.FileOptions`
 
-`File.content` is an extended form of `File.read`
+- #### `File.create`
 
-It detects if the content of the file is parsable to JSON, if it is then it will use `JSON.parse` to parse it.
+    - Create File
 
-It also Converts the content of the file to Byte Array.
+    ```js
+        const file = fs.openFile("file", { autoCreate: false });
+        file.createSync(options?) // creates File
+    ```
 
-```js
-...
-const file1 = fs.open("Greeting.txt");
-const content = file1.content;
+    - options: `FileTypes.createSyncOptions`
 
-console.log(content) // "Hello World"
-console.log(content.json()) // null (because the content is not JSON parsable)
-console.log(content.ByteArray()) // [ByteArray]
-```
 
+- #### `File.delete`
 
-### `File.detailedContent`
+    - delete File
 
-It splits the content with `\n` and returns the lines, Number of Lines and Number of characters.
+    ```js
+        file.deleteSync(options?) // deletes File
+    ```
 
-```js
-...
-const detailedContent = file1.detailedContent;
+    - options: `FileTypes.deleteSyncOptions`
 
-console.log(detailedContent.lines) // 1
-console.log(detailedContent.chars) // 11
-console.log(detailedContent.content) // [Lines]
-```
+- #### `File.readRaw`
 
-### `File.isDirectory`
+    - reads content of file and returns as string
 
-Returns `false` (Self Explaining)
+    ```js
+        file.readRawSync(options?)
+    ```
 
-### `File.filename`
+    - options: `FileTypes.readRawSyncOptions`
 
-Returns the name of the File
+- #### `File.read`
 
-### `File.dirPath`
+    - reads content of file and returns custom string object
 
-Returns the path of the directory
+    ```js
+        file.readSync(options?) // returns FileTypes.readSyncReturn
+    ```
 
-### `File.Directory`
+    - options: `FileTypes.readSyncOptions`
 
-Returns the instance of parent directory
+- #### `File.writeRaw`
 
-### `File.writeStream`
+    - writes string to file
 
-Returns `fs.createWriteStream(path)`;
+    ```js
+        file.writeRawSync(options?)
+    ```
 
-### `File.readStream`
+    - options: `FileTypes.writeRawSyncOptions`
 
-Returns `fs.createReadStream(path)`;
+- #### `File.write`
 
-### `File.create`
+    - writes to file and tries to parse if not provided string
+    - Parser tries to parse JSON, Buffer, number.
 
-Creates the file if does not exists
+    ```js
+        file.writeSync(options?)
+    ```
 
-### `File.Delete`
+    - options: `FileTypes.writeSyncOptions`
 
-It allows to delete the file
+- #### `File.append`
 
+    - Appends string at the end of the file
 
-### `File.copy`
+    ```js
+        file.appendSync(content, readRawSyncOptions?, writeRawSyncOptions?) // returns new content
+    ```
 
-Copies the File
+    - content: `string`
+    - readRawSyncOptions: `FileTypes.readRawSyncOptions`
+    - writeRawSyncOptions: `FileTypes.writeRawSyncOptions`
 
-```js
 
-...
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("File1.txt");
+- #### `File.prepend`
 
-f1.copy("File2.txt")
-```
+    - Prepends string at the end of the file
 
-- `params`
-    - `directory`: It expects String or a Directory Instance
-    - `filename`: By default the name of the file it self
+    ```js
+        file.prependSync(content, readRawSyncOptions?, writeRawSyncOptions?) // returns new content
+    ```
 
-With Directory Instance
+    - content: `string`
+    - readRawSyncOptions: `FileTypes.readRawSyncOptions`
+    - writeRawSyncOptions: `FileTypes.writeRawSyncOptions`
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const Dir2 = fs.open("dir:dir2");
-const f1 = Dir1.open("File1.txt");
+- #### `File.delete`
 
-f1.copy(Dir2, "ImCopiedFile1.txt");
-```
+    - deletes the file
 
-### `File.secondCopy`
+    ```js
+        file.deleteSync(options?)
+    ```
 
-It allows to create second copy of the file in the same directory
+    - options: `FileTypes.deleteSyncOptions`
 
-```js
-...
-f1.secondCopy("ImSecondCopyOfFile1.txt");
-```
+- #### `File.copy`
 
-### `File.move`
+    - copies the file to destination directory
 
-It allows to Move File around.
+    ```js
+        file.copySync(destination, filename?, options?)
+    ```
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const Dir2 = fs.open("dir:dir2");
-const f1 = Dir1.open("File1.txt");
+    - destination: `Directory`
+    - filename: `string`
+    - options: `FileTypes.copySyncOptions`
 
-f1.move(Dir2);
-```
+- #### `File.move`
 
-- `params`
-    - `directory`: Instance of Directory or path of directory
-    - `filename`: Rename the file, if `undefined` current name of the file will be set
+    - moves the file to destination directory
 
-### `File.rename`
+    ```js
+        file.moveSync(destination, filename?, options?)
+    ```
 
-It allows to rename the file
+    - destination: `Directory`
+    - filename: `string`
+    - options: `FileTypes.moveSyncOptions`
 
-```js
-const f1 = fs.open("foo.txt");
-f1.rename("bar.txt");
-```
 
-### `File.replace`
+- #### `File.secondCopy`
 
-It allows to replace the file with some new file
+    - Creates second copy of self in parent directory
 
-```js
-const f1 = fs.open("foo.txt").write("Im foo");
-const f2 = fs.open("bar.txt").write("Im Bar");
+    ```js
+        file.secondCopySync(filename)
+    ```
 
-f1.replace(f2);
-```
+    - filename: `string`
 
-- `params`
-    - `file`: Instance of File or a path string
-    - `rename`: If `true` the name of the file will be replaced with the provided file
+- #### `File.rename`
 
-### `File.downloadFrom`
+    - rename the name of the file
 
-It allows to fetch data from url and writes it on the file
+    ```js
+        file.renameSync(filename)
+    ```
 
-```js
-const f1 = fs.open("foo.txt");
+    - filename: `string`
 
-await f1.downloadFrom("https://example.com/api/data");
-```
 
-However this method returns a Promise.
+- #### `File.replaceWith`
 
-If the Request or Write Fails, original content of the file will be re-written
+    - replace the file content with given File
 
+    ```js
+        file.replaceWithSync(file)
+    ```
 
-### `File.update`
+    - file: `File`
 
-It allows to update the content of the file with a custom function.
+- #### `File.update`
 
-```js
-const f1 = fs.open("file:file1.json");
-f1.write({
-    name: "Henil",
-    age: 11
-})
-f1.update((content)=>{
-    content = content.json();
-    content.age = 17;
-    return content;
-})
-console.log(f1.content.json()) // { name: "Henil", age: 17 }
-```
+    - updates file content with callback function
 
-This Especially Helps when the content is `JSON Blob`.
+    ```js
+        file.updateSync((content)=>{
+            return newContent
+        });
+    ```
 
--------------------
+    - callback: `(content: FileTypes.readSyncReturn) => any`
 
-## `Directory Instance`
+- #### `get File.dirname`
 
+    - returns name of file
 
-### `Directory.open`
+    ```js
+        file.dirname // returns string
+    ```
 
-This method allows to open a file/directory from the directory
+- #### `File.createReadStream`
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt")
-```
+    - returns read stream of file
 
-Here `f1` will contain the path something like this: `<BasePath>/dir1/foo.txt`
+    ```js
+        file.createReadStream(options?);
+    ```
 
-It basically redirects your arguments to `Filic.open` method
+    - options: `FileTypes.createReadStreamOptions`
 
-### `Directory.exists`
+- #### `File.createWriteStream`
 
-Returns a boolean `true` if the directory exists, if not returns `false`.
+    - returns write stream of file
 
-### `Directory.isDirectory`
+    ```js
+        file.createWriteStream(options?);
+    ```
 
-Returns `true` (Self Explaining)
+    - options: `FileTypes.createWriteStreamOptions`
 
-### `Directory.dirname`
+### Common Methods between `Directory` and `File`
 
-Returns name of the directory
+- #### `get absolutePath`
+    
+    - returns absolute path of directory or file
+    
+    ```js
+        dir.absolutePath // string
+        // or
+        file.absolutePath // string
+    ```
 
-### `Directory.Directory`
+- #### `get Filic`
 
-Returns new `Directory` Instance of Parent Directory
+    - returns parent filic instance
 
-### `Directory.create`
+    ```js
+        dir.Filic // Filic
+        // or
+        file.Filic // Filic
+    ```
 
-Creates the directory if it does not exists
+- #### `get exists`
 
-- It will be called automatically if you have passed `Directory.options.autoCreate` as `true`
+    - returns if file or directory exists
 
-### `Directory.list`
+    ```js
+        dir.exists // boolean
+        // or
+        file.exists // boolean
+    ```
 
-Returns an array of `Directory` Instance of the files/directories inside the Directory.
+- #### `get parentDir`
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const Dir2 = Dir1.open("dir:dir2");
-const f1 = Dir1.open("foo.txt");
-const f2 = Dir1.open("bar.txt");
+    - returns parent directory as `Directory` Instance
 
-console.log(Dir1.list()) // [Directory, File, File]
-```
+    ```js
+        dir.parentDir // Directory
+        // or
+        file.parentDir // Directory
+    ```
 
-### `Directory.delete`
+- #### `get dirPath`
 
-Deletes the file/directory inside the Directory.
+    - returns parent directory absolute path
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
+    ```js
+        dir.dirPath // string
+        // or
+        file.dirPath // string
+    ```
 
-Dir1.delete("foo.txt"); // deletes "foo.txt"
-// OR
-Dir1.delete(f1); // deletes "foo.txt"
-```
 
-### `Directory.deleteItSelf`
 
-Deletes Every file/directory inside and also deletes it self.
+***
 
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
-const f2 = Dir1.open("bar.txt");
-const Dir2 = Dir1.open("dir:dir2");
-const f3 = Dir2.open("baz.txt");
+## 🤝 Contributing
 
-Dir1.deleteItSelf(); // will delete it self
-```
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/henil0604/filic/issues). 
 
-### `Directory.clear`
+## Show your support
 
-Deletes Every file/directory inside.
-
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
-const f2 = Dir1.open("bar.txt");
-const Dir2 = Dir1.open("dir:dir2");
-const f3 = Dir2.open("baz.txt");
-
-Dir1.clear() // will delete everything inside
-```
-
-### `Directory.existsInside`
-
-Checks if file/directory exists inside.
-
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
-
-Dir1.existsInside("foo.txt") // true
-Dir1.existsInside("bar.txt") // false
-```
-
-### `Directory.copy`
-
-Copies the directory to some other directory
-
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
-const Dir2 = fs.open("dir:dir2");
-
-Dir1.copy(Dir2);
-```
-
-- `params`
-    - `directory`: Instance of Directory or path of directory
-    - `insidesOnly`: by default `false`, if `true` it will only copy the files/directories inside, if `false` the whole directory will be copied to the provided location/directory
-
-### `Directory.move`
-
-Moves the directory to some other directory
-
-```js
-const Dir1 = fs.open("dir:dir1");
-const f1 = Dir1.open("foo.txt");
-const Dir2 = fs.open("dir:dir2");
-
-Dir1.move(Dir2)
-```
-
-### `Directory.command`
-
-Allows to run Command Inside the Directory
-
-```js
-const Dir1 = fs.open("dir:dir1");
-
-Dir1.command("npm install filic").then(console.log);
-```
-
-With Sync
-```js
-const Dir1 = fs.open("dir:dir1");
-
-const command = Dir1.command("npm install filic");
-
-console.log(command);
-```
-
-- `params`
-    - `command`: Command that you want to run
-    - `sync`: default `false`, if `true` it will block the event loop and run the command synchronously, if `false` returns a promise that will be resolved when all output comes.
-
-### `Directory.secondCopy`
-
-It Creates the second Copy of Directory In Parent Directory.
-
-```js
-const Dir1 = fs.open("dir:dir1");
-const foo = Dir1.open("file:foo");
-
-Dir1.secondCopy("dir2")
-```
-
-----------
-
-**More Methods and Utilities will be added soon...**
-
-
----------
-
-
-# Coded By [Henil Malaviya](https://github.com/henil0604) With ❤️
+Give a ⭐️ if this project helped you!
