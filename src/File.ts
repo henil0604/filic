@@ -255,10 +255,10 @@ class File extends Entity {
         return file;
     }
 
-    public async rename(filename?: string) {
+    public async rename(filename: string) {
         return await this.move(this.parentDir, filename);
     }
-    public renameSync(filename?: string) {
+    public renameSync(filename: string) {
         return this.moveSync(this.parentDir, filename);
     }
 

@@ -6,7 +6,6 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import * as DirectoryTypes from '../types/Directory';
 import * as FileTypes from '../types/File';
-import * as child_process from "child_process";
 
 class Directory extends Entity {
 
@@ -139,7 +138,7 @@ class Directory extends Entity {
         }
         return this;
     }
-    public async clearSync() {
+    public clearSync() {
         const list = this.listSync()
         for (const entity of list) {
             if (entity.type === EntityTypes.DIR) {
