@@ -1,6 +1,6 @@
 {
   "name": "filic",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An Advance File System API",
   "main": "lib/index.js",
   "keywords": [
