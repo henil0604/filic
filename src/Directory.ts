@@ -1,11 +1,11 @@
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from "../types/Filic";
-import Entity from "./Entity";
-import Filic from "./Filic";
-import File from './File';
+import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from "./types/Filic.js";
+import Entity from "./Entity.js";
+import Filic from "./Filic.js";
+import File from './File.js';
 import * as fs from 'fs';
 import * as Path from 'path';
-import * as DirectoryTypes from '../types/Directory';
-import * as FileTypes from '../types/File';
+import * as DirectoryTypes from './types/Directory.js';
+import * as FileTypes from './types/File.js';
 
 class Directory extends Entity {
 

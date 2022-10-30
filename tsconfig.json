@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "moduleResolution": "node",
-    "noUncheckedIndexedAccess": true,
-    "isolatedModules": true,
-    "target": "es6",
-    "module": "CommonJS",
+    "target": "ES2022",
+    "lib": ["ES2021"],
+    "moduleResolution": "Node",
+    "module": "ES2022",
     "declaration": true,
     "outDir": "./lib",
   },
   "include": [
     "src",
-    "index.ts"
   ],
   "exclude": ["node_modules", "lib"]
 }

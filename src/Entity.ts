@@ -1,7 +1,7 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import { EntityOptions, EntityTypes } from '../types/Filic';
-import Filic from './Filic';
+import { EntityOptions, EntityTypes } from './types/Filic.js';
+import Filic from './Filic.js';
 
 class Entity {
     public type: EntityTypes;
