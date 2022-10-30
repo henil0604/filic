@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES5",
     "allowJs": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true,
+    "isolatedModules": true,
+    "target": "es6",
+    "module": "CommonJS",
+    "declaration": true,
     "outDir": "./lib",
-    "isolatedModules": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.js"
+    "src",
+    "index.ts"
   ],
   "exclude": ["node_modules", "lib"]
 }
