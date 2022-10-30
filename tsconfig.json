@@ -5,9 +5,12 @@
     "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
     "target": "es6",
-    "module": "CommonJS",
+    "module": "es6",
     "declaration": true,
     "outDir": "./lib",
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
   },
   "include": [
     "src",

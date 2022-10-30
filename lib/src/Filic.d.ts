@@ -15,3 +15,4 @@ declare class Filic {
     static get File(): typeof File;
 }
 export default Filic;
+//# sourceMappingURL=Filic.d.ts.map

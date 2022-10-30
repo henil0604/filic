@@ -1,8 +1,9 @@
 {
   "name": "filic",
-  "version": "2.1.0",
+  "version": "2.2.0-alpha",
   "description": "An Advance File System API",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "keywords": [
     "File System",
     "fs",
@@ -12,7 +13,8 @@
   ],
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "license": "ISC",
   "devDependencies": {
