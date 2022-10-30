@@ -1,11 +1,11 @@
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from "../types/Filic";
+import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from "./types/Filic";
 import Entity from "./Entity";
 import Filic from "./Filic";
 import File from './File';
 import * as fs from 'fs';
 import * as Path from 'path';
-import * as DirectoryTypes from '../types/Directory';
-import * as FileTypes from '../types/File';
+import * as DirectoryTypes from './types/Directory';
+import * as FileTypes from './types/File';
 
 class Directory extends Entity {
 

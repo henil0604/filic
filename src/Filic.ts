@@ -1,7 +1,6 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import Utils from './Utils';
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from '../types/Filic';
+import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from './types/Filic';
 import Entity from './Entity';
 import Directory from './Directory';
 import File from './File';

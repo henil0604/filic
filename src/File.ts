@@ -1,12 +1,10 @@
-import { DirectoryOptions, EntityTypes, OpenOptions, FileOptions } from "../types/Filic";
+import { DirectoryOptions, EntityTypes, OpenOptions, FileOptions } from "./types/Filic";
 import Entity from "./Entity";
 import * as fs from 'fs';
 import * as Path from 'path';
 import Utils from "./Utils";
-import { Abortable } from "events";
-import * as FileTypes from "../types/File";
+import * as FileTypes from "./types/File";
 import Directory from "./Directory";
-import Filic from "./Filic";
 
 class File extends Entity {
 
