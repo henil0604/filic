@@ -1,3 +1,3 @@
 import Filic from './src/Filic';
 
-export default Filic;
+module.exports = Filic;
