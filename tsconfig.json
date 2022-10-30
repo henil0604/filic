@@ -6,8 +6,6 @@
     "moduleResolution": "node",
     "declaration": true,
     "outDir": "./lib",
-    "declarationMap": true,
-    "sourceMap": true,
   },
   "include": [
     "src",

@@ -41,4 +41,3 @@ declare class File extends Entity {
     static create(options: FileOptions): File;
 }
 export default File;
-//# sourceMappingURL=File.d.ts.map

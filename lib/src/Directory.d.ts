@@ -40,4 +40,3 @@ declare class Directory extends Entity {
     static create(options?: DirectoryOptions): Directory;
 }
 export default Directory;
-//# sourceMappingURL=Directory.d.ts.map

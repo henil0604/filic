@@ -18,4 +18,3 @@ declare class Entity {
     static create(options: EntityOptions): Entity;
 }
 export default Entity;
-//# sourceMappingURL=Entity.d.ts.map

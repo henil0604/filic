@@ -4,4 +4,3 @@ export declare type createOptions = fs.MakeDirectoryOptions;
 export declare type createSyncOptions = fs.MakeDirectoryOptions;
 export declare type deleteSelfOptions = fs.RmOptions;
 export declare type deleteSelfSyncOptions = fs.RmOptions;
-//# sourceMappingURL=Directory.d.ts.map

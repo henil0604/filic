@@ -5,4 +5,3 @@ declare class Utils {
     static Try(callback: () => any): () => any;
 }
 export default Utils;
-//# sourceMappingURL=Utils.d.ts.map

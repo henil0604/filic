@@ -17,4 +17,3 @@ export interface DirectoryOptions extends EntityOptions {
 }
 export interface FileOptions extends EntityOptions {
 }
-//# sourceMappingURL=Filic.d.ts.map

@@ -45,4 +45,3 @@ export declare type readReturn = string & {
     toBuffer: () => number[];
 };
 export declare type readSyncReturn = readReturn;
-//# sourceMappingURL=File.d.ts.map
