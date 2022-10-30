@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "target": "es5",
+    "module": "es2015",
     "moduleResolution": "node",
-    "noUncheckedIndexedAccess": true,
-    "isolatedModules": true,
-    "target": "es6",
-    "module": "es6",
     "declaration": true,
     "outDir": "./lib",
     "declarationMap": true,
     "sourceMap": true,
-    "esModuleInterop": true,
   },
   "include": [
     "src",
