@@ -1,9 +1,9 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from './types/Filic';
-import Entity from './Entity';
-import Directory from './Directory';
-import File from './File';
+import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from './types/Filic.js';
+import Entity from './Entity.js';
+import Directory from './Directory.js';
+import File from './File.js';
 
 class Filic {
     public BasePath: string

@@ -1,4 +1,4 @@
-import Filic from "../Filic";
+import Filic from "../Filic.js";
 export declare enum EntityTypes {
     FILE = "FILE",
     DIR = "DIR"

@@ -1,4 +1,4 @@
-import Filic from "../Filic"
+import Filic from "../Filic.js"
 
 export enum EntityTypes {
     FILE = "FILE",

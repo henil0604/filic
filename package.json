@@ -1,6 +1,6 @@
 {
   "name": "filic",
-  "version": "2.2.0-alpha.5",
+  "version": "2.2.0",
   "description": "An Advance File System API",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/node": "^18.7.20",
     "nodemon": "^2.0.20",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.4"
   },
   "homepage": "https://github.com/henil0604/filic#readme",
   "author": "Henil Malaviya <henilmalaviya06@gmail.com>"
