@@ -17,6 +17,7 @@
     "prepare": "npm run build"
   },
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^18.7.20",
     "nodemon": "^2.0.20",
