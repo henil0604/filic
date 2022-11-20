@@ -25,7 +25,7 @@ npm install filic
 
 This library aims to simplify how applications access File System via `fs` API. The Filic API is really simple to use to make your experience great with File System API.
 
-Filic uses object oriented abroach to handle files and directories. 
+Filic uses object oriented approach to handle files and directories. 
 
 Filic's First Priority is to make API type-safe and simple.
 
@@ -97,13 +97,6 @@ import * as FileTypes from 'filic/types/File';
     - filename: `string`
         - Name of File that you want open
     - options: `FilicTypes.FileOptions`
-
-
-👤 **Henil Malaviya <henilmalaviya06@gmail.com>**
-
-* Website: [henil.xyz](https://henil.xyz)
-* Twitter: [@henil06](https://twitter.com/henil06)
-* Github: [@henil0604](https://github.com/henil0604)
 
 ### `Directory`
 
@@ -543,6 +536,15 @@ const file = fs.openFile(filename, options?);
 
 
 ***
+
+## Author
+
+👤 **Henil Malaviya**
+
+* E-mail: [henilmalaviya06@gmail.com](mailto:henilmalaviya06@gmail.com)
+* Website: [henil.xyz](https://henil.xyz)
+* Twitter: [@henil06](https://twitter.com/henil06)
+* Github: [@henil0604](https://github.com/henil0604)
 
 ## 🤝 Contributing
 
