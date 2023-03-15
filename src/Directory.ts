@@ -29,11 +29,19 @@ class Directory extends Entity {
 
     // Delete Method
     public async deleteSelf(options?: DirectoryTypes.deleteSelfOptions): Promise<this> {
-        await fs.promises.rm(this.absolutePath, options)
+        await fs.promises.rm(this.absolutePath, {
+	    recursive: true,
+	    force: true,
+	    ...options
+	})
         return this;
     }
     public deleteSelfSync(options?: DirectoryTypes.deleteSelfSyncOptions): this {
-        fs.rmSync(this.absolutePath, options)
+        fs.rmSync(this.absolutePath, {
+	    recursive: true,
+	    force: true,
+	    ...options
+	})
         return this;
     }
 
