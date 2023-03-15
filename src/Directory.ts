@@ -1,4 +1,4 @@
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from "./types/Filic.js";
+import { DirectoryOptions, EntityTypes, FileOptions } from "@/types/Filic";
 import Entity from "./Entity.js";
 import Filic from "./Filic.js";
 import File from './File.js';
@@ -22,7 +22,7 @@ class Directory extends Entity {
         await fs.promises.mkdir(this.absolutePath, options)
         return this;
     }
-    public createSync(options?: DirectoryTypes.createSyncOptions): this {
+    public override createSync(options?: DirectoryTypes.createSyncOptions): this {
         fs.mkdirSync(this.absolutePath, options)
         return this;
     }
@@ -253,7 +253,7 @@ class Directory extends Entity {
     }
 
     // Open Directory inside a directory
-    public openDir(path: string, options?: DirectoryOptions): Directory {
+    public openDir(path: string, options?: Partial<DirectoryOptions>): Directory {
         return this.toFilic().openDir(path, {
             Filic: this.toFilic(),
             ...options,
@@ -261,7 +261,7 @@ class Directory extends Entity {
     }
 
     // Open File inside a directory
-    public openFile(path: string, options?: FileOptions): File {
+    public openFile(path: string, options?: Partial<FileOptions>): File {
         return this.toFilic().openFile(path, {
             Filic: this.toFilic(),
             ...options
@@ -278,7 +278,7 @@ class Directory extends Entity {
     }
 
     // create new instance
-    public static create(options?: DirectoryOptions): Directory {
+    public static override create(options?: DirectoryOptions): Directory {
         return new Directory(options);
     }
 

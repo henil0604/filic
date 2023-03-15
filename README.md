@@ -35,7 +35,7 @@ Filic's First Priority is to make API type-safe and simple.
 ```js
 import Filic from 'filic';
 
-const fs = Filic.create("/home") // new Filic
+const fs = Filic.create() // new Filic
 
 const greetings = fs.openFile("greetings.json")
 
@@ -55,9 +55,9 @@ console.log(greetings.readSync()); // ["Good Morning","Good Afternoon","Good Nig
 ### Types
 
 ```js
-import * as FilicTypes from 'filic/types/Filic';
-import * as DirectoryTypes from 'filic/types/Directory';
-import * as FileTypes from 'filic/types/File';
+import * as FilicTypes from 'filic/types/Filic.d';
+import * as DirectoryTypes from 'filic/types/Directory.d';
+import * as FileTypes from 'filic/types/File.d';
 ```
 
 ### `Filic`
@@ -72,7 +72,7 @@ import * as FileTypes from 'filic/types/File';
     ```
 
     - BasePath: `string`
-        - Path of Directory from where every path will be resolved
+        - Path of Directory from where every path will be resolved. defaults to `process.cwd()`
 
 - #### `Filic.openDir`
 
