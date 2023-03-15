@@ -1,7 +1,7 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import { EntityOptions, EntityTypes } from './types/Filic.js';
-import Filic from './Filic.js';
+import { EntityOptions, EntityTypes } from '@/types/Filic.d';
+import Filic from '@/Filic.js';
 
 class Entity {
     public type: EntityTypes;
@@ -48,7 +48,7 @@ class Entity {
 
     }
 
-    public createSync(...args): void { }
+    public createSync(..._args): void { }
 
 
     public get absolutePath() {
@@ -67,7 +67,8 @@ class Entity {
         return Filic.Directory.create({
             path: Path.basename(this.dirPath),
             Filic: Filic.create(Path.dirname(this.dirPath)),
-            type: EntityTypes.DIR
+            type: EntityTypes.DIR,
+            autoCreate: true
         });
     }
 

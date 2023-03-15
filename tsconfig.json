@@ -1,14 +1,42 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2021"],
+    "target": "ESNext",
+    "lib": [
+      "ES2021"
+    ],
     "moduleResolution": "Node",
-    "module": "ES2022",
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "noEmit": false,
     "declaration": true,
-    "outDir": "./lib",
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
+    "noUncheckedIndexedAccess": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "checkJs": true
   },
   "include": [
     "src",
-  ],
-  "exclude": ["node_modules", "lib"]
+    "tsup.config.ts"
+  ]
 }

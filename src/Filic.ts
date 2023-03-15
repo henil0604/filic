@@ -1,9 +1,9 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import { DirectoryOptions, EntityTypes, FileOptions, OpenOptions } from './types/Filic.js';
-import Entity from './Entity.js';
-import Directory from './Directory.js';
-import File from './File.js';
+import { DirectoryOptions, EntityTypes, FileOptions, openDirOptions, openFileOptions, openOptions } from '@/types/Filic.d';
+import Entity from '@/Entity.js';
+import Directory from '@/Directory.js';
+import File from '@/File.js';
 
 class Filic {
     public BasePath: string
@@ -31,11 +31,11 @@ class Filic {
     }
 
     // Open Method to open Files and Directories
-    private open(path: string, options?: OpenOptions): Entity | Directory | File {
+    public open(path: string, options?: openOptions): Entity | Directory | File | null {
         // Resolving Absolute Path
         const absolutePath = this.ResolvePath(path);
         // Cloning Original options
-        const opts: OpenOptions = {
+        const opts = {
             ...options
         }
 
@@ -46,7 +46,7 @@ class Filic {
 
         if (opts.type === EntityTypes.DIR) {
             return Directory.create({
-                path: path,
+                path,
                 Filic: this,
                 autoCreate: true,
                 ...(opts.EntityOptions as DirectoryOptions)
@@ -55,23 +55,30 @@ class Filic {
 
         if (opts.type === EntityTypes.FILE) {
             return File.create({
-                path: path,
+                path,
                 Filic: this,
                 autoCreate: true,
                 ...(opts.EntityOptions as FileOptions)
             })
         }
 
+        return null
     }
 
-    public openDir(path: string, options?: DirectoryOptions): Directory {
+    public get asDir() {
+        return this.openDir(".", {
+
+        })
+    }
+
+    public openDir(path: string, options?: openDirOptions): Directory {
         return this.open(path, {
             EntityOptions: { ...options },
             type: EntityTypes.DIR
         }) as Directory
     }
 
-    public openFile(path: string, options?: FileOptions): File {
+    public openFile(path: string, options?: openFileOptions): File {
         return this.open(path, {
             EntityOptions: { ...options },
             type: EntityTypes.FILE
@@ -102,6 +109,8 @@ class Filic {
         return File;
     }
 
+    public static UNIX_ROOT_DIR = "/"
+    public static HOME_DIR = process.env.HOME
 
 }
 

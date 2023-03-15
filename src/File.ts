@@ -1,10 +1,10 @@
-import { DirectoryOptions, EntityTypes, OpenOptions, FileOptions } from "./types/Filic.js";
-import Entity from "./Entity.js";
+import { EntityTypes, FileOptions } from "@/types/Filic.d";
+import Entity from "@/Entity.js";
 import * as fs from 'fs';
 import * as Path from 'path';
-import Utils from "./Utils.js";
-import * as FileTypes from "./types/File.js";
-import Directory from "./Directory.js";
+import Utils from "@/Utils.js";
+import * as FileTypes from "@/types/File.d";
+import Directory from "@/Directory.js";
 
 class File extends Entity {
 
@@ -21,7 +21,7 @@ class File extends Entity {
         await fs.promises.appendFile(this.absolutePath, "", options)
         return this;
     }
-    public createSync(options?: FileTypes.createSyncOptions): this {
+    public override createSync(options?: FileTypes.createSyncOptions): this {
         fs.appendFileSync(this.absolutePath, "", options)
         return this;
     }
@@ -308,10 +308,9 @@ class File extends Entity {
     }
 
     // create new instance
-    public static create(options: FileOptions): File {
+    public static override create(options: FileOptions): File {
         return new File(options);
     }
-
 
 }
 
