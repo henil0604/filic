@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": [
-      "ES2021"
-    ],
-    "moduleResolution": "Node",
+    "target": "ES2022",
+    "moduleResolution": "node",
     "module": "ESNext",
     "resolveJsonModule": true,
     "allowJs": true,
     "outDir": "./dist",
-    "noEmit": false,
+    "noEmit": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,

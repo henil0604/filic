@@ -5,12 +5,14 @@ const isDev = process.env.npm_lifecycle_event === "dev";
 export default defineConfig({
     clean: true,
     dts: true,
-    entry: ["src/**/*.ts"],
+    entry: ["src/index.ts"],
     format: ["esm"],
-    minify: !isDev,
+    minify: false,
     metafile: !isDev,
     sourcemap: true,
-    target: "esnext",
+    target: "es2022",
     outDir: "dist",
-    splitting: false
+    splitting: false,
+    keepNames: true,
+    bundle: true
 });
