@@ -1,9 +1,9 @@
-import { EntityTypes, FileOptions } from "@/types/Filic.d";
+import { EntityTypes, FileOptions } from "@/types/Filic";
 import Entity from "@/Entity.js";
 import * as fs from 'fs';
 import * as Path from 'path';
 import Utils from "@/Utils.js";
-import * as FileTypes from "@/types/File.d";
+import * as FileTypes from "@/types/File";
 import Directory from "@/Directory.js";
 
 class File extends Entity {

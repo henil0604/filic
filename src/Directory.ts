@@ -1,4 +1,4 @@
-import { DirectoryOptions, EntityTypes, FileOptions } from "@/types/Filic.d";
+import { DirectoryOptions, EntityTypes, FileOptions } from "@/types/Filic";
 import Entity from "./Entity.js";
 import Filic from "./Filic.js";
 import File from './File.js';

@@ -1,6 +1,6 @@
 import * as Path from 'path';
 import * as fs from 'fs';
-import { DirectoryOptions, EntityTypes, FileOptions, openDirOptions, openFileOptions, openOptions } from '@/types/Filic.d';
+import { DirectoryOptions, EntityTypes, FileOptions, openDirOptions, openFileOptions, openOptions } from '@/types/Filic';
 import Entity from '@/Entity.js';
 import Directory from '@/Directory.js';
 import File from '@/File.js';
