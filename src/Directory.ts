@@ -254,6 +254,47 @@ class Directory extends Entity {
         return this;
     }
 
+    public async search(searchTerm: string, options?: DirectoryTypes.searchOptions) {
+        const dirs: (Directory | File)[] = [];
+        let ls = await this.list();
+
+        for (let entity of ls) {
+            if ((entity as File).filename === searchTerm || (entity as Directory).dirname === searchTerm) {
+                if (options?.type && entity.type === options.type) {
+                    dirs.push(entity);
+                }
+            }
+            if (entity.type === EntityTypes.DIR) {
+                entity = entity as Directory;
+                if (options?.deep) {
+                    dirs.push(...await entity.search(searchTerm, options))
+                }
+            }
+        }
+
+        return dirs;
+    }
+    public searchSync(searchTerm: string, options?: DirectoryTypes.searchOptions) {
+        const dirs: (Directory | File)[] = [];
+        let ls = this.listSync();
+
+        for (let entity of ls) {
+            if ((entity as File).filename === searchTerm || (entity as Directory).dirname === searchTerm) {
+                if (options?.type && entity.type === options.type) {
+                    dirs.push(entity);
+                }
+            }
+            if (entity.type === EntityTypes.DIR) {
+                entity = entity as Directory;
+                if (options?.deep) {
+                    dirs.push(...entity.searchSync(searchTerm, options))
+                }
+            }
+        }
+
+        return dirs;
+    }
+
     // Path Resolver
     // Appends the given path to absolutePath
     public ResolvePath(path: string): string {
