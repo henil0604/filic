@@ -30,18 +30,18 @@ class Directory extends Entity {
     // Delete Method
     public async deleteSelf(options?: DirectoryTypes.deleteSelfOptions): Promise<this> {
         await fs.promises.rm(this.absolutePath, {
-	    recursive: true,
-	    force: true,
-	    ...options
-	})
+            recursive: true,
+            force: true,
+            ...options
+        })
         return this;
     }
     public deleteSelfSync(options?: DirectoryTypes.deleteSelfSyncOptions): this {
         fs.rmSync(this.absolutePath, {
-	    recursive: true,
-	    force: true,
-	    ...options
-	})
+            recursive: true,
+            force: true,
+            ...options
+        })
         return this;
     }
 
@@ -163,29 +163,29 @@ class Directory extends Entity {
         return fs.existsSync(this.ResolvePath(path));
     }
 
-    public async copyAll(destination: Directory) {
+    public async copyAll(destination: Directory, copyFileOptions?: FileTypes.copyOptions) {
         const list = await this.list()
 
         for (const entity of list) {
             if (entity.type === EntityTypes.DIR) {
-                await (entity as Directory).copyAll(destination.openDir((entity as Directory).dirname));
+                await (entity as Directory).copyAll(destination.openDir((entity as Directory).dirname), copyFileOptions);
             }
             if (entity.type === EntityTypes.FILE) {
-                await (entity as File).copy(destination);
+                await (entity as File).copy(destination, (entity as File).filename, copyFileOptions);
             }
         }
 
         return this;
     }
-    public copyAllSync(destination: Directory) {
+    public copyAllSync(destination: Directory, copyFileOptions?: FileTypes.copyOptions) {
         const list = this.listSync()
 
         for (const entity of list) {
             if (entity.type === EntityTypes.DIR) {
-                (entity as Directory).copyAllSync(destination.openDir((entity as Directory).dirname));
+                (entity as Directory).copyAllSync(destination.openDir((entity as Directory).dirname), copyFileOptions);
             }
             if (entity.type === EntityTypes.FILE) {
-                (entity as File).copySync(destination);
+                (entity as File).copySync(destination, (entity as File).filename, copyFileOptions);
             }
         }
 
