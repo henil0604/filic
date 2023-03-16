@@ -263,6 +263,17 @@ const dir = fs.openDir(dirname, options?);
 
     - dirname: `string`
 
+- #### `Directory.search`
+
+    - Creates second copy of self in parent directory
+
+    ```js
+        dir.search(searchTerm, searchOptions)
+    ```
+
+    - searchTerm: `string`
+    - searchOptions: `DirectoryTypes.searchOptions`
+
 - #### `Directory.toFilic`
 
     - creates `Filic` Instance of directory Path as `BasePath`
