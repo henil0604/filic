@@ -217,10 +217,11 @@ const dir = fs.openDir(dirname, options?);
     - copies all file inside to destination directory
 
     ```js
-        dir.copyAllSync(destination)
+        dir.copyAllSync(destination, copyFileOptions?)
     ```
 
     - destination: `Directory`
+    - copyFileOptions: `FileTypes.copyFileOptions`
 
 - #### `Directory.copy`
 
