@@ -349,6 +349,15 @@ class Directory extends Entity {
         return Path.basename(this.absolutePath);
     }
 
+    public get size() {
+        const ls = this.listSync();
+        let size = 0;
+        for (const entity of ls) {
+            size += entity.size || 0;
+        }
+        return size;
+    }
+
     // create new instance
     public static override create(options?: DirectoryOptions): Directory {
         return new Directory(options);

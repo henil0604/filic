@@ -76,6 +76,10 @@ class Entity {
         return Path.dirname(this.absolutePath);
     }
 
+    public get stats() {
+        return fs.statSync(this.absolutePath);
+    }
+
     // Detect type of entity based on its stats
     public static detectTypeWithPath(path: string): EntityTypes | null {
         if (!fs.existsSync(path)) return null;

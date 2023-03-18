@@ -288,6 +288,9 @@ class File extends Entity {
         return Path.basename(this.absolutePath);
     }
 
+    public get size() {
+        return this.stats.size;
+    }
 
     // Parse any javascript related objects to string
     public static parseWrite(content: any) {
