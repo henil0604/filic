@@ -293,6 +293,14 @@ const dir = fs.openDir(dirname, options?);
         dir.toFilic() // returns Filic
     ```
 
+- #### `get Directory.size`
+
+    - returns size of directory in bytes
+
+    ```js
+        dir.size // returns number
+    ```
+
 - #### `get Directory.dirname`
 
     - returns directory name of directory
@@ -476,6 +484,14 @@ const file = fs.openFile(filename, options?);
 
     - callback: `(content: FileTypes.readSyncReturn) => any`
 
+- #### `get File.size`
+
+    - returns size of file in bytes
+
+    ```js
+        file.size // returns number
+    ```
+
 - #### `get File.dirname`
 
     - returns name of file
@@ -554,6 +570,16 @@ const file = fs.openFile(filename, options?);
         dir.dirPath // string
         // or
         file.dirPath // string
+    ```
+
+- #### `get stats`
+
+    - returns stats of entity
+
+    ```js
+        dir.stats // string
+        // or
+        file.stats // string
     ```
 
 
