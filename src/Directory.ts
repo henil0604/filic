@@ -6,7 +6,6 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import * as DirectoryTypes from './types/Directory.js';
 import * as FileTypes from './types/File.js';
-import { $, Options } from 'execa';
 
 class Directory extends Entity {
 
@@ -294,28 +293,6 @@ class Directory extends Entity {
         }
 
         return dirs;
-    }
-
-    public async $(command: string, options?: Partial<Options>) {
-        const $$ = $({
-            stdio: 'pipe',
-            shell: true,
-            cwd: this.absolutePath,
-            ...options,
-        })
-
-        return await $$`${command}`;
-    }
-
-    public $Sync(command: string, options?: Partial<Options>) {
-        const $$ = $({
-            stdio: 'pipe',
-            shell: true,
-            cwd: this.absolutePath,
-            ...options,
-        })
-
-        return $$.sync`${command}`;
     }
 
     // Path Resolver
