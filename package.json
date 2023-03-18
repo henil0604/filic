@@ -35,5 +35,8 @@
     "typescript": "^4.9.5"
   },
   "homepage": "https://github.com/henil0604/filic#readme",
-  "author": "Henil Malaviya <henilmalaviya06@gmail.com>"
+  "author": "Henil Malaviya <henilmalaviya06@gmail.com>",
+  "dependencies": {
+    "execa": "^7.1.1"
+  }
 }
