@@ -274,6 +274,17 @@ const dir = fs.openDir(dirname, options?);
     - searchTerm: `string`
     - searchOptions: `DirectoryTypes.searchOptions`
 
+- #### `Directory.$`
+
+    - Executes a command in the directory
+
+    ```js
+        dir.$(command, options?)
+    ```
+
+    - command: `string`
+    - options: `execa.Options`
+
 - #### `Directory.toFilic`
 
     - creates `Filic` Instance of directory Path as `BasePath`
