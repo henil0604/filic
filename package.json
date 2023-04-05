@@ -3,6 +3,7 @@
   "version": "3.3.3",
   "description": "An Advance File System API",
   "types": "dist/index.d.ts",
+  "main": "dist/index.js",
   "keywords": [
     "File System",
     "fs",
@@ -25,7 +26,6 @@
   ],
   "license": "ISC",
   "type": "module",
-  "exports": "./dist/index.js",
   "devDependencies": {
     "@types/node": "^18.15.3",
     "nodemon": "^2.0.21",
