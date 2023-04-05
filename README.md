@@ -6,8 +6,8 @@
   <a href="#" target="_blank">
     <img alt="License: ISC" src="https://img.shields.io/badge/License-ISC-yellow.svg" />
   </a>
-  <a href="https://twitter.com/henil0604" target="_blank">
-    <img alt="Twitter: henil0604" src="https://img.shields.io/twitter/follow/henil0604.svg?style=social" />
+  <a href="https://twitter.com/realhenil" target="_blank">
+    <img alt="Twitter: realhenil" src="https://img.shields.io/twitter/follow/realhenil.svg?style=social" />
   </a>
 </p>
 
@@ -590,9 +590,9 @@ const file = fs.openFile(filename, options?);
 
 👤 **Henil Malaviya**
 
-* E-mail: [henilmalaviya06@gmail.com](mailto:henilmalaviya06@gmail.com)
+* E-mail: [me@henil.xyz](mailto:me@henil.xyz)
 * Website: [henil.xyz](https://henil.xyz)
-* Twitter: [@henil06](https://twitter.com/henil06)
+* Twitter: [@realhenil](https://twitter.com/realhenil)
 * Github: [@henil0604](https://github.com/henil0604)
 
 ## 🤝 Contributing
