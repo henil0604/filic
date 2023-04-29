@@ -296,6 +296,10 @@ class File extends Entity {
         return Path.extname(this.filename)
     }
 
+    public get basename() {
+        return this.parentDir.absolutePath;
+    }
+
     // Parse any javascript related objects to string
     public static parseWrite(content: any) {
         if (content instanceof Buffer) {
