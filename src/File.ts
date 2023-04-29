@@ -292,6 +292,14 @@ class File extends Entity {
         return this.stats.size;
     }
 
+    public get extension() {
+        return Path.extname(this.filename)
+    }
+
+    public get basename() {
+        return this.parentDir.absolutePath;
+    }
+
     // Parse any javascript related objects to string
     public static parseWrite(content: any) {
         if (content instanceof Buffer) {
