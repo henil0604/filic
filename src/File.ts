@@ -5,6 +5,7 @@ import * as Path from 'path';
 import Utils from "@/Utils.js";
 import * as FileTypes from "@/types/File";
 import Directory from "@/Directory.js";
+import { createHash } from 'node:crypto'
 
 class File extends Entity {
 
@@ -282,6 +283,17 @@ class File extends Entity {
         const newContent = callback(content);
         this.writeSync(newContent);
         return this;
+    }
+
+    public async checksum(options?: Partial<FileTypes.checksumOptions>) {
+        const content = await this.readRaw();
+        const hash = createHash(options?.algorithm || 'sha256').update(content).digest(options?.encoding || 'hex');
+        return hash;
+    }
+    public checksumSync(options?: Partial<FileTypes.checksumSyncOptions>) {
+        const content = this.readRawSync();
+        const hash = createHash(options?.algorithm || 'sha256').update(content).digest(options?.encoding || 'hex');
+        return hash;
     }
 
     public get filename() {
