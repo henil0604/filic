@@ -520,6 +520,16 @@ const file = fs.openFile(filename, options?);
 
     - options: `FileTypes.createWriteStreamOptions`
 
+- #### `File.checksum`
+
+    - returns checksum of file
+
+    ```ts
+        file.checksum(options?)
+    ```
+
+    - options: `FileTypes.checksumOptions`
+
 ### Common Methods between `Directory` and `File`
 
 - #### `get absolutePath`
@@ -581,7 +591,6 @@ const file = fs.openFile(filename, options?);
         // or
         file.stats // string
     ```
-
 
 
 ***

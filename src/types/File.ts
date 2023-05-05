@@ -1,3 +1,4 @@
+import { BinaryToTextEncoding } from "crypto";
 import { Abortable } from "events";
 import * as fs from "fs";
 
@@ -54,3 +55,9 @@ export interface moveSyncOptions extends moveOptions { }
 
 export type readReturn = string & { toJSON: () => any, toBuffer: () => number[] };
 export type readSyncReturn = readReturn;
+
+export interface checksumOptions {
+    algorithm: string
+    encoding: BinaryToTextEncoding
+}
+export interface checksumSyncOptions extends checksumOptions { }
