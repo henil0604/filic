@@ -6,6 +6,7 @@ import Utils from "@/Utils.js";
 import * as FileTypes from "@/types/File";
 import Directory from "@/Directory.js";
 import { createHash } from 'node:crypto'
+import Cryptr from 'cryptr'
 
 class File extends Entity {
 
@@ -294,6 +295,27 @@ class File extends Entity {
         const content = this.readRawSync();
         const hash = createHash(options?.algorithm || 'sha256').update(content).digest(options?.encoding || 'hex');
         return hash;
+    }
+
+    public async encrypt(key: string, file?: File, _options?: FileTypes.encryptOptions) {
+        if (!file || file instanceof File === false) {
+            file = this.parentDir.openFile(`${this.filename}.enc`, { autoCreate: true });
+        }
+        const cryptr = new Cryptr(key);
+        const content = await this.readRaw()
+        const encryptedContent = cryptr.encrypt(content);
+        await file.writeRaw(encryptedContent);
+        return file;
+    }
+    public encryptSync(key: string, file?: File, _options?: FileTypes.encryptSyncOptions) {
+        if (!file || file instanceof File === false) {
+            file = this.parentDir.openFile(`${this.filename}.enc`, { autoCreate: true });
+        }
+        const cryptr = new Cryptr(key);
+        const content = this.readRawSync()
+        const encryptedContent = cryptr.encrypt(content);
+        file.writeRawSync(encryptedContent);
+        return file;
     }
 
     public get filename() {

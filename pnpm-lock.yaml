@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  cryptr:
+    specifier: ^6.2.0
+    version: 6.2.0
   execa:
     specifier: ^7.1.1
     version: 7.1.1
@@ -365,6 +368,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /cryptr@6.2.0:
+    resolution: {integrity: sha512-jYi8SxvOFebTT7EYOABiPpHKY6lwWaP9IVcvT/aIVJUVoFdzTgi0ySPCL78q1ig8w2kwfXFCZACXoCXaye57aw==}
+    dev: false
 
   /debug@3.2.7(supports-color@5.5.0):
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
