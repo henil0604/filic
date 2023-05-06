@@ -530,6 +530,19 @@ const file = fs.openFile(filename, options?);
 
     - options: `FileTypes.checksumOptions`
 
+- #### `File.encrypt`
+
+    - encrypts file and stores the encrypted result in given file.
+
+    ```ts
+        file.encrypt(key, file?, options?)
+    ```
+
+    - key: `string`
+    - file: `File`
+        - by default the result will be stored in the same directory in file with filename `<filename>.enc`
+    - options: `FileTypes.encryptOptions`
+
 ### Common Methods between `Directory` and `File`
 
 - #### `get absolutePath`
