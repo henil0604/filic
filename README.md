@@ -543,6 +543,19 @@ const file = fs.openFile(filename, options?);
         - by default the result will be stored in the same directory in file with filename `<filename>.enc`
     - options: `FileTypes.encryptOptions`
 
+- #### `File.decrypt`
+
+    - decrypts file and stores the decrypted result in given file.
+
+    ```ts
+        file.decrypt(key, file?, options?)
+    ```
+
+    - key: `string`
+    - file: `File`
+        - by default the result will be stored in the same directory in file with filename `<filename>.dec`
+    - options: `FileTypes.decryptOptions`
+
 ### Common Methods between `Directory` and `File`
 
 - #### `get absolutePath`
