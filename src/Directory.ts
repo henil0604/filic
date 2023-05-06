@@ -359,7 +359,7 @@ class Directory extends Entity {
     }
 
     // create new instance
-    public static override create(options?: DirectoryOptions): Directory {
+    public static override create(options: DirectoryOptions): Directory {
         return new Directory(options);
     }
 
