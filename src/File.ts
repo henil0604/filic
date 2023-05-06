@@ -318,6 +318,27 @@ class File extends Entity {
         return file;
     }
 
+    public async decrypt(key: string, file?: File, _options?: FileTypes.decryptOptions) {
+        if (!file || file instanceof File === false) {
+            file = this.parentDir.openFile(`${this.filename}.dec`, { autoCreate: true });
+        }
+        const cryptr = new Cryptr(key);
+        const content = await this.readRaw()
+        const decryptedContent = cryptr.decrypt(content);
+        await file.writeRaw(decryptedContent);
+        return file;
+    }
+    public decryptSync(key: string, file?: File, _options?: FileTypes.decryptSyncOptions) {
+        if (!file || file instanceof File === false) {
+            file = this.parentDir.openFile(`${this.filename}.dec`, { autoCreate: true });
+        }
+        const cryptr = new Cryptr(key);
+        const content = this.readRawSync()
+        const decryptedContent = cryptr.decrypt(content);
+        file.writeRawSync(decryptedContent);
+        return file;
+    }
+
     public get filename() {
         return Path.basename(this.absolutePath);
     }
