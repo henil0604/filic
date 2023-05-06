@@ -64,3 +64,6 @@ export interface checksumSyncOptions extends checksumOptions { }
 
 export interface encryptOptions { }
 export interface encryptSyncOptions extends encryptOptions { }
+
+export interface decryptOptions { }
+export interface decryptSyncOptions extends decryptOptions { }
