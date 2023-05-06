@@ -24,9 +24,6 @@
   "engines": {
     "node": ">=14.16"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "license": "ISC",
   "type": "module",
   "devDependencies": {
