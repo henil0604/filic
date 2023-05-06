@@ -61,3 +61,6 @@ export interface checksumOptions {
     encoding: BinaryToTextEncoding
 }
 export interface checksumSyncOptions extends checksumOptions { }
+
+export interface encryptOptions { }
+export interface encryptSyncOptions extends encryptOptions { }
