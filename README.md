@@ -556,6 +556,14 @@ const file = fs.openFile(filename, options?);
         - by default the result will be stored in the same directory in file with filename `<filename>.dec`
     - options: `FileTypes.decryptOptions`
 
+- #### `get File.extension`
+
+    - returns extension of file
+
+    ```ts
+        file.extension // returns string
+    ```
+
 ### Common Methods between `Directory` and `File`
 
 - #### `get absolutePath`
