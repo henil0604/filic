@@ -396,7 +396,7 @@ const file = fs.openFile(filename, options?);
 
 - #### `File.prepend`
 
-    - Prepends string at the end of the file
+    - Prepends string at the start of the file
 
     ```js
         file.prependSync(content, readRawSyncOptions?, writeRawSyncOptions?) // returns new content
