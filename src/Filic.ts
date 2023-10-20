@@ -23,8 +23,8 @@ class Filic {
             fs.mkdirSync(this.BasePath);
         }
 
-        // if given path is not directory, throw the error
-        if (fs.statSync(this.BasePath).isDirectory() === false) {
+        // if directory exists and if given path is not directory, throw the error
+        if (fs.existsSync(this.BasePath) && fs.statSync(this.BasePath).isDirectory() === false) {
             throw new Error(`${this.BasePath} is not a directory`)
         }
 
