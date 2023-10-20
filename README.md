@@ -68,11 +68,13 @@ import * as FileTypes from 'filic/types/File.d';
     ```js
         import Filic from 'filic'
 
-        const fs = Filic.create(BasePath);
+        const fs = Filic.create(BasePath, autoCreate?);
     ```
 
     - BasePath: `string`
         - Path of Directory from where every path will be resolved. defaults to `process.cwd()`
+    - autoCreateDir: `boolean`
+        - if `true` and the `BasePath` does not exists, it will create the directory. if `false` client will not force create `BasePath` directory. defaults to `true`
 
 - #### `Filic.openDir`
 

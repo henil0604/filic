@@ -8,7 +8,7 @@ import File from '@/File.js';
 class Filic {
     public BasePath: string
 
-    public constructor(BasePath?: string) {
+    public constructor(BasePath?: string, autoCreateDir: boolean = true) {
         // Checking if BasePath is provided
         if (!BasePath) {
             // if not just set it to current working directory
@@ -19,7 +19,7 @@ class Filic {
         }
 
         // Checking if directory exists, if not create one
-        if (!fs.existsSync(this.BasePath)) {
+        if (!fs.existsSync(this.BasePath) && autoCreateDir === true) {
             fs.mkdirSync(this.BasePath);
         }
 
