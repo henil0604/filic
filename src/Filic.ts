@@ -93,8 +93,8 @@ class Filic {
 
 
     // Static Initializer function
-    public static create(BasePath?: string) {
-        return new Filic(BasePath)
+    public static create(BasePath?: string, autoCreateDir: boolean = true) {
+        return new Filic(BasePath, autoCreateDir);
     }
 
     public static get Entity() {
